@@ -39,4 +39,34 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+  void SignIn(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    try {
+      User user = User(
+          id: '',
+          name: '',
+          email: email,
+          password: password,
+          address: '',
+          type: '',
+          token: '');
+      http.Response res = await http.post(Uri.parse('$uri/api/signin'),
+          body: user.toJson(),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+          });
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            showSnackBar(context, 'Logging you in!!!');
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

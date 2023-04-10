@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:amazon/constants/error_handling.dart';
 import 'package:amazon/constants/global_variables.dart';
 import 'package:amazon/constants/utils.dart';
 import 'package:amazon/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   void signUp(
@@ -62,8 +65,10 @@ class AuthService {
       httpErrorHandle(
           response: res,
           context: context,
-          onSuccess: () {
-            showSnackBar(context, 'Logging you in!!!');
+          onSuccess: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString(
+                'x-auth-token', jsonDecode(res.body)['token']);
           });
     } catch (e) {
       showSnackBar(context, e.toString());

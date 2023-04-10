@@ -33,6 +33,14 @@ class _AuthScreenState extends State<AuthScreen> {
           context: context);
     }
 
+    void signInUser() {
+      auth.SignIn(
+        email: _emailController.text,
+        password: _passwordController.text,
+        context: context,
+      );
+    }
+
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundColor,
       body: SafeArea(
@@ -145,7 +153,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           height: 10.0,
                         ),
-                        CustomButton(text: 'Sign Up', onTap: () {})
+                        CustomButton(
+                            text: 'Sign In',
+                            onTap: () {
+                              if (_signinFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            })
                       ],
                     ),
                   ),

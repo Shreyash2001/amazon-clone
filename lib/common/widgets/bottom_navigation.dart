@@ -21,7 +21,7 @@ class _BottomNavigationBarState extends State<BottomNavigationBar> {
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
         iconSize: 28,
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Container(
                 width: bottomBarWidth,

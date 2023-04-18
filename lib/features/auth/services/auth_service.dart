@@ -54,16 +54,8 @@ class AuthService {
       required String password,
       required BuildContext context}) async {
     try {
-      User user = User(
-          id: '',
-          name: '',
-          email: email,
-          password: password,
-          address: '',
-          type: '',
-          token: '');
       http.Response res = await http.post(Uri.parse('$uri/api/signin'),
-          body: user.toJson(),
+          body: jsonEncode({'email': email, 'password': password}),
           headers: <String, String>{
             'Content-Type': 'application/json',
           });
@@ -91,7 +83,7 @@ class AuthService {
       if (token == null) {
         prefs.setString('x-auth-token', '');
       }
-      var tokenRes = await http.post(Uri.parse('$uri/tokenIsValid'),
+      var tokenRes = await http.post(Uri.parse('$uri/api/tokenIsValid'),
           headers: <String, String>{
             'Content-Type': 'application/json',
             'x-auth-token': token!
